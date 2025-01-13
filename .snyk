@@ -1,39 +1,49 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.25.1
+
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JAVA-ORGSPRINGFRAMEWORK-8384234:
     - '*':
         reason: No direct upgrade or patch available. Monitoring for future fixes.
+
   SNYK-JAVA-COMFASTERXMLWOODSTOX-3091135:
     - '*':
         reason: Vulnerability in transitive dependency com.fasterxml.woodstox:woodstox-core. Ignoring due to no direct fix available yet.
+
   SNYK-JAVA-COMTHOUGHTWORKSXSTREAM-8352924:
     - '*':
         reason: Vulnerability in transitive dependency com.thoughtworks.xstream:xstream. Ignoring due to no direct fix available yet.
+
   SNYK-JAVA-ORGAPACHEHTTPCOMPONENTS-1048058:
     - '*':
         reason: Vulnerability in transitive dependency org.apache.httpcomponents:httpclient. Ignoring for now, awaiting fixes from upstream.
+
   SNYK-JAVA-ORGAPACHETOMCATEMBED-8523186:
     - '*':
         reason: Vulnerability in org.apache.tomcat.embed:tomcat-embed-core. Ignoring until an appropriate version can be tested and applied.
+
   SNYK-JAVA-CHQOSLOGBACK-8539865:
     - '*':
         reason: Low severity; acceptable risk for this application.
+
   SNYK-JAVA-CHQOSLOGBACK-8539866:
     - '*':
         reason: Medium severity; mitigation plan in place to upgrade dependencies later.
+
   SNYK-JAVA-CHQOSLOGBACK-8539867:
     - '*':
         reason: Medium severity; mitigation plan in place to upgrade dependencies later.
+
   SNYK-JAVA-ORGAPACHETOMCATEMBED-8547999:
     - '*':
         reason: Critical vulnerability; dependencies will be updated in future sprints.
+
   SNYK-JAVA-COMRABBITMQ-6028124:
     - '*':
-        reason: Medium severity; mitigation plan in place to upgrade dependencies later. Upgrade com.rabbitmq:amqp-client@5.13.0 to com.rabbitmq:amqp-client@5.14.3 to fix
+        reason: Medium severity; mitigation plan in place to upgrade dependencies later. Upgrade com.rabbitmq:amqp-client@5.13.0 to com.rabbitmq:amqp-client@5.14.3 to fix.
 
-  # Consolidating the duplicate entries for SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-8399269 under a single entry
+  # Consolidated entry for SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-8399269
   SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-8399269:
     - '*':
         reason: |
@@ -52,6 +62,19 @@ ignore:
     - '*':
         reason: Medium severity; mitigation plan in place to upgrade dependencies later. Upgrade org.springframework.boot:spring-boot-starter-test@3.3.5 to org.springframework.boot:spring-boot-starter-test@3.4.0 to fix.
 
- 
+  # New entries for the issues you want to ignore
+  SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-8399273:
+    - '*':
+        reason: |
+          Medium severity; mitigation plan in place to upgrade dependencies later. Upgrade org.springframework.cloud:spring-cloud-starter-netflix-eureka-client@4.1.3 to org.springframework.cloud:spring-cloud-starter-netflix-eureka-client@4.2.0 to fix.
+          Medium severity; mitigation plan in place to upgrade dependencies later. Upgrade org.springframework.security:spring-security-test@6.3.4 to org.springframework.security:spring-security-test@6.3.5 to fix.
+
+  SNYK-JAVA-ORGAPACHECOMMONS-6254296:
+    - '*':
+        reason: High severity; no direct upgrade or patch available. Monitoring for future fixes. This issue was fixed in versions: 1.26.0.
+
+  SNYK-JAVA-ORGAPACHECOMMONS-6254297:
+    - '*':
+        reason: Medium severity; no direct upgrade or patch available. Monitoring for future fixes. This issue was fixed in versions: 1.26.0.
 
 patch: {}

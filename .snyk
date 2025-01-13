@@ -52,20 +52,6 @@ ignore:
     - '*':
         reason: Medium severity; mitigation plan in place to upgrade dependencies later. Upgrade org.springframework.boot:spring-boot-starter-test@3.3.5 to org.springframework.boot:spring-boot-starter-test@3.4.0 to fix.
 
-  SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-8399273:
-    - '*':
-        reason: Medium severity; mitigation plan in place to upgrade dependencies later. Upgrade org.springframework.cloud:spring-cloud-starter-netflix-eureka-client@4.1.3 to org.springframework.cloud:spring-cloud-starter-netflix-eureka-client@4.2.0 to fix.
-
-  SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-8399278:
-    - '*':
-        reason: Medium severity; mitigation plan in place to upgrade dependencies later. Upgrade org.springframework.boot:spring-boot-starter-security@3.3.5 to org.springframework.boot:spring-boot-starter-security@3.3.6 to fix.
-
-  SNYK-JAVA-ORGAPACHECOMMONS-6254296:
-    - '*':
-        reason: High severity; no direct upgrade or patch. This issue was fixed in versions: 1.26.0.
-
-  SNYK-JAVA-ORGAPACHECOMMONS-6254297:
-    - '*':
-        reason: Medium severity; no direct upgrade or patch. This issue was fixed in versions: 1.26.0.
+ 
 
 patch: {}

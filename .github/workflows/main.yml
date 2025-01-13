@@ -1,0 +1,47 @@
+name: Spring Boot Gradle CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle
+        env:
+          SPRING_DATASOURCE_URL: jdbc:sqlserver://authenticationcc.database.windows.net:1433;databaseName=authenticationcc
+          SPRING_DATASOURCE_USERNAME: sally
+          SPRING_DATASOURCE_PASSWORD: Halan2021!
+        run: ./gradlew build
+
+      - name: Run Tests
+        env:
+          SPRING_DATASOURCE_URL: jdbc:sqlserver://authenticationcc.database.windows.net:1433;databaseName=authenticationcc
+          SPRING_DATASOURCE_USERNAME: sally
+          SPRING_DATASOURCE_PASSWORD: Halan2021!
+        run: ./gradlew test
+
+    

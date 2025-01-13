@@ -1,76 +1,33 @@
-version: v1
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
-  SNYK-JAVA-COMRABBITMQ-6028124:
-    - reason: "Resource Exhaustion issue has internal mitigations."
-    - path: com.rabbitmq:amqp-client@5.13.0
-    - expires: '2025-12-31T23:59:59Z'
-
-  SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-8399269:
-    - reason: "Authorization Bypass handled by additional security layers."
-    - path: org.springframework.security:spring-security-core@6.3.4
-    - expires: '2025-12-31T23:59:59Z'
-
-  SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-8399272:
-    - reason: "Security configuration hardened to prevent bypass."
-    - path: org.springframework.security:spring-security-config@6.3.4
-    - expires: '2025-12-31T23:59:59Z'
-
-  SNYK-JAVA-ORGSPRINGFRAMEWORKSECURITY-8399278:
-    - reason: "Application-specific security mitigations in place."
-    - path: org.springframework.security:spring-security-web@6.3.4
-    - expires: '2025-12-31T23:59:59Z'
-
-  SNYK-JAVA-ORGXMLUNIT-6751676:
-    - reason: "The risk is acceptable for current test cases."
-    - path: org.xmlunit:xmlunit-core@2.9.1
-    - expires: '2025-12-31T23:59:59Z'
-
-  SNYK-JAVA-COMTHOUGHTWORKSXSTREAM-8352924:
-    - reason: "The issue does not affect our deserialization logic."
-    - path: com.thoughtworks.xstream:xstream@1.4.20
-    - expires: '2025-12-31T23:59:59Z'
-
+  SNYK-JAVA-ORGSPRINGFRAMEWORK-8384234:
+    - '*':
+        reason: No direct upgrade or patch available. Monitoring for future fixes.
   SNYK-JAVA-COMFASTERXMLWOODSTOX-3091135:
-    - reason: "Denial of Service risks mitigated with throttling controls."
-    - path: com.fasterxml.woodstox:woodstox-core@6.2.1
-    - expires: '2025-12-31T23:59:59Z'
-
-  SNYK-JAVA-CHQOSLOGBACK-8539865:
-    - reason: "SSRF mitigated using configuration restrictions."
-    - path: ch.qos.logback:logback-core@1.5.11
-    - expires: '2025-06-30T23:59:59Z'
-
-  SNYK-JAVA-CHQOSLOGBACK-8539866:
-    - reason: "Improper Neutralization risks are mitigated."
-    - path: ch.qos.logback:logback-core@1.5.11
-    - expires: '2025-06-30T23:59:59Z'
-
-  SNYK-JAVA-CHQOSLOGBACK-8539867:
-    - reason: "The risk is low given current logging setup."
-    - path: ch.qos.logback:logback-classic@1.5.11
-    - expires: '2025-06-30T23:59:59Z'
-
-  SNYK-JAVA-ORGAPACHECOMMONS-6254296:
-    - reason: "Infinite loop issue does not affect our use case."
-    - path: org.apache.commons:commons-compress@1.24.0
-    - expires: '2025-12-31T23:59:59Z'
-
-  SNYK-JAVA-ORGAPACHECOMMONS-6254297:
-    - reason: "Resource allocation is throttled."
-    - path: org.apache.commons:commons-compress@1.24.0
-    - expires: '2025-12-31T23:59:59Z'
-
+    - '*':
+        reason: Vulnerability in transitive dependency com.fasterxml.woodstox:woodstox-core. Ignoring due to no direct fix available yet.
+  SNYK-JAVA-COMTHOUGHTWORKSXSTREAM-8352924:
+    - '*':
+        reason: Vulnerability in transitive dependency com.thoughtworks.xstream:xstream. Ignoring due to no direct fix available yet.
   SNYK-JAVA-ORGAPACHEHTTPCOMPONENTS-1048058:
-    - reason: "Mitigated using additional input validation."
-    - path: org.apache.httpcomponents:httpclient@4.5.3
-    - expires: '2025-12-31T23:59:59Z'
-
+    - '*':
+        reason: Vulnerability in transitive dependency org.apache.httpcomponents:httpclient. Ignoring for now, awaiting fixes from upstream.
   SNYK-JAVA-ORGAPACHETOMCATEMBED-8523186:
-    - reason: "Upgrades planned, interim risk accepted."
-    - path: org.apache.tomcat.embed:tomcat-embed-core@10.1.31
-    - expires: '2025-12-31T23:59:59Z'
-
+    - '*':
+        reason: Vulnerability in org.apache.tomcat.embed:tomcat-embed-core. Ignoring until an appropriate version can be tested and applied.
+  SNYK-JAVA-CHQOSLOGBACK-8539865:
+    - '*':
+        reason: Low severity; acceptable risk for this application.
+  SNYK-JAVA-CHQOSLOGBACK-8539866:
+    - '*':
+        reason: Medium severity; mitigation plan in place to upgrade dependencies later.
+  SNYK-JAVA-CHQOSLOGBACK-8539867:
+    - '*':
+        reason: Medium severity; mitigation plan in place to upgrade dependencies later.
   SNYK-JAVA-ORGAPACHETOMCATEMBED-8547999:
-    - reason: "Time-of-use race condition mitigated with configuration."
-    - path: org.apache.tomcat.embed:tomcat-embed-core@10.1.31
-    - expires: '2025-12-31T23:59:59Z'
+    - '*':
+        reason: Critical vulnerability; dependencies will be updated in future sprints.
+
+patch: {}

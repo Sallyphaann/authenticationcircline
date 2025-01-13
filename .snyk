@@ -71,10 +71,12 @@ ignore:
 
   SNYK-JAVA-ORGAPACHECOMMONS-6254296:
     - '*':
-        reason: High severity; no direct upgrade or patch available. Monitoring for future fixes. This issue was fixed in versions: 1.26.0.
+        reason: |
+          High severity; no direct upgrade or patch available. Monitoring for future fixes. This issue was fixed in versions: 1.26.0.
 
   SNYK-JAVA-ORGAPACHECOMMONS-6254297:
     - '*':
-        reason: Medium severity; no direct upgrade or patch available. Monitoring for future fixes. This issue was fixed in versions: 1.26.0.
+        reason: |
+          Medium severity; no direct upgrade or patch available. Monitoring for future fixes. This issue was fixed in versions: 1.26.0.
 
 patch: {}

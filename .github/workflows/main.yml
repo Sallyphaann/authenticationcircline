@@ -112,33 +112,53 @@ jobs:
   EndtoEnd:
     runs-on: ubuntu-latest
     needs: build
-    services:
-      backend:
-        image: sallyphaan/authenticationcc:latest
-        ports:
-          - 8081:8081
-      frontend:
-        image: sallyphaan/frontendindividualss6:latest
-        ports:
-          - 3000:3000
     steps:
+      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      # Step 2: Log in to Docker Hub (if necessary)
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
         with:
-          node-version: 18
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - name: Install dependencies
-        run: npm install
+      # Step 3: Pull and run the backend container
+      - name: Pull and run the backend container
+        run: |
+          docker pull sallyphaan/authenticationcc:latest
+          docker run -d --name backend-container -p 8081:8081 sallyphaan/authenticationcc:latest
 
+      # Step 4: Pull and run the frontend container
+      - name: Pull and run the frontend container
+        run: |
+          docker pull sallyphaan/frontendindividualss6:latest
+          docker run -d --name frontend-container -p 3000:3000 sallyphaan/frontendindividualss6:latest
+
+      # Step 5: Wait for the services to be ready (Health check approach)
+      - name: Wait for services to be ready
+        run: |
+          until curl -s http://localhost:3000; do
+            echo "Waiting for frontend to be ready..."
+            sleep 2
+          done
+          until curl -s http://localhost:8081; do
+            echo "Waiting for backend to be ready..."
+            sleep 2
+          done
+          
+      # Step 6: Install Cypress dependencies
+      - name: Install Cypress dependencies
+        run: npm install cypress
+
+      # Step 7: Run Cypress tests
       - name: Run Cypress tests
-        uses: cypress-io/github-action@v5
-        with:
-          start: npm run start  # Change if needed to start your app
-          wait-on: http://localhost:3000  # Wait for frontend to be ready
-          config-file: cypress/cypress.config.js  # Point to Cypress config
+        run: npx cypress run --config baseUrl=http://localhost:3000
+
+      # Step 8: Cleanup containers after the tests are complete
+      - name: Cleanup containers
+        run: docker stop frontend-container backend-container && docker rm frontend-container backend-container
   sonar:
     runs-on: ubuntu-latest
     needs: [test,Integrationtest,EndtoEnd]

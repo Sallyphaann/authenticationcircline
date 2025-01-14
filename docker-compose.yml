@@ -1,42 +1,22 @@
-version: "3.9"
+version: '3.8'
 
 services:
-  authservice:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  backend:
+    image: sallyphaan/authenticationcc:latest
     ports:
       - "8081:8081"
+    networks:
+      - e2e-network
+
+  frontend:
+    image: sallyphaan/frontendindividualss6:latest
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/authenticationcc
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: Halan2021!
-      SPRING_RABBITMQ_HOST: rabbitmq
-      SPRING_RABBITMQ_PORT: 5672
-      SPRING_RABBITMQ_USERNAME: guest
-      SPRING_RABBITMQ_PASSWORD: guest
+      CYPRESS_BASE_URL: "http://backend:8081"
+    networks:
+      - e2e-network
     depends_on:
-      - rabbitmq
-      - db
+      - backend
 
-  rabbitmq:
-    image: rabbitmq:3-management
-    ports:
-      - "15672:15672" # RabbitMQ Management UI
-      - "5672:5672"   # RabbitMQ default port
-    environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
-
-  db:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: Halan2021!
-      MYSQL_DATABASE: authenticationcc
-    ports:
-      - "3307:3306"
-    volumes:
-      - db_data:/var/lib/mysql
-
-volumes:
-  db_data:
+networks:
+  app-network:
+    driver: bridge

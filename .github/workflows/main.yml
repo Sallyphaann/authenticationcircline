@@ -149,11 +149,18 @@ jobs:
             sleep 2
           done
   
-      # Step 6: Run Cypress tests against the frontend
-      - name: Run Cypress tests
+      # Step 6: Install Cypress and Xvfb inside the frontend container
+      - name: Install Cypress and Xvfb inside frontend container
         run: |
-          docker exec frontend-container npx cypress run --config baseUrl=http://localhost:3000 --headless
-      # Step 7: Cleanup containers after the tests
+          docker exec frontend-container bash -c "apt-get update && apt-get install -y xvfb"
+          docker exec frontend-container bash -c "npm install cypress"
+  
+      # Step 7: Run Cypress tests with Xvfb
+      - name: Run Cypress tests with Xvfb
+        run: |
+          docker exec frontend-container bash -c "Xvfb :99 & export DISPLAY=:99 && npx cypress run --config baseUrl=http://localhost:3000 --headless"
+  
+      # Step 8: Cleanup containers after the tests
       - name: Cleanup containers
         run: docker stop frontend-container backend-container && docker rm frontend-container backend-container
 

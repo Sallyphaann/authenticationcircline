@@ -286,8 +286,8 @@ jobs:
           az acr login --name authenticationservice
           az container create \
             --resource-group circlineRG \
-            --name my-aci-instance \
-            --image authenticationservice.azurecr.io/sallyphaan/authenticationcc:latest \
+            --name postservice-container \
+            --image sallyphaan/authenticationcc:latest \
             --cpu 1 \
             --memory 1 \
             --registry-username ${{ secrets.ACR_USERNAME }} \

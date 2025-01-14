@@ -152,8 +152,7 @@ jobs:
       # Step 6: Run Cypress tests against the frontend
       - name: Run Cypress tests
         run: |
-          docker exec -it frontend-container npx cypress run --config baseUrl=http://localhost:3000 --headless
-  
+          docker exec frontend-container npx cypress run --config baseUrl=http://localhost:3000 --headless
       # Step 7: Cleanup containers after the tests
       - name: Cleanup containers
         run: docker stop frontend-container backend-container && docker rm frontend-container backend-container

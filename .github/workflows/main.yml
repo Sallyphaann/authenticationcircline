@@ -152,12 +152,7 @@ jobs:
       # Step 6: Run Cypress tests using the official Cypress Docker image
       - name: Run Cypress tests
         run: |
-          docker run --rm \
-          -v C:\githubfrontendindividual\frontendsss6\cypress:/mnt/project \
-          -w /mnt/project \
-          -e CYPRESS_baseUrl=http://localhost:3000 \
-          cypress/included:13.17.0 \
-          npx cypress run --headless
+          docker run --rm -v C:/githubfrontendindividual/frontendsss6/cypress:/mnt/project  -w /mnt/project -e CYPRESS_baseUrl=http://localhost:3000 cypress/included:13.17.0  npx cypress run --headless
 
   
       # Step 7: Cleanup containers after the tests

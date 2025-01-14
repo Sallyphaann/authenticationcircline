@@ -29,7 +29,7 @@ services:
     entrypoint: npx cypress run
     working_dir: /e2e
     volumes:
-      - "C:/Users/Acer Nitro/OneDrive - Office 365 Fontys/Desktop/git hub frontend individual/frontendsss6/cypress/e2e:/e2e"  # Windows path to your test files
+      - "C:/Users/Acer\ Nitro/OneDrive\ -\ Office\ 365\ Fontys/Desktop/git\ hub\ frontend\ individual/frontendsss6/cypress/e2e:/e2e"
     command: npx cypress run
 networks:
   e2e-network:

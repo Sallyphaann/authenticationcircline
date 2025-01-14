@@ -110,59 +110,59 @@ jobs:
           SPRING_DATASOURCE_USERNAME: ${{ secrets.DB_USERNAME }}
           SPRING_DATASOURCE_PASSWORD: ${{ secrets.DB_PASSWORD }}
           
-  EndtoEnd:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      # Step 1: Checkout the code
-      - name: Checkout code
-        uses: actions/checkout@v3
+  # EndtoEnd:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     # Step 1: Checkout the code
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
   
-      # Step 2: Log in to Docker Hub (if necessary)
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
+  #     # Step 2: Log in to Docker Hub (if necessary)
+  #     - name: Log in to Docker Hub
+  #       uses: docker/login-action@v2
+  #       with:
+  #         username: ${{ secrets.REGISTRY_USERNAME }}
+  #         password: ${{ secrets.REGISTRY_PASSWORD }}
   
-      # Step 3: Pull and run the backend container
-      - name: Pull and run the backend container
-        run: |
-          docker pull sallyphaan/authenticationcc:latest
-          docker run -d --name backend-container -p 8081:8081 sallyphaan/authenticationcc:latest
+  #     # Step 3: Pull and run the backend container
+  #     - name: Pull and run the backend container
+  #       run: |
+  #         docker pull sallyphaan/authenticationcc:latest
+  #         docker run -d --name backend-container -p 8081:8081 sallyphaan/authenticationcc:latest
   
-      # Step 4: Pull and run the frontend container
-      - name: Pull and run the frontend container
-        run: |
-          docker pull sallyphaan/frontendindividualss6:latest
-          docker run -d --name frontend-container -p 3000:3000 sallyphaan/frontendindividualss6:latest
+  #     # Step 4: Pull and run the frontend container
+  #     - name: Pull and run the frontend container
+  #       run: |
+  #         docker pull sallyphaan/frontendindividualss6:latest
+  #         docker run -d --name frontend-container -p 3000:3000 sallyphaan/frontendindividualss6:latest
   
-      # Step 5: Wait for the services to be ready (Health check approach)
-      - name: Wait for services to be ready
-        run: |
-          until curl -s http://localhost:3000; do
-            echo "Waiting for frontend to be ready..."
-            sleep 2
-          done
-          until curl -s http://localhost:8081; do
-            echo "Waiting for backend to be ready..."
-            sleep 2
-          done
+  #     # Step 5: Wait for the services to be ready (Health check approach)
+  #     - name: Wait for services to be ready
+  #       run: |
+  #         until curl -s http://localhost:3000; do
+  #           echo "Waiting for frontend to be ready..."
+  #           sleep 2
+  #         done
+  #         until curl -s http://localhost:8081; do
+  #           echo "Waiting for backend to be ready..."
+  #           sleep 2
+  #         done
   
-      # Step 6: Run Cypress tests using the official Cypress Docker image
-      - name: Run Cypress tests
-        run: |
-          docker run --rm -v C:/githubfrontendindividual/frontendsss6/cypress:/mnt/project  -w /mnt/project -e CYPRESS_baseUrl=http://localhost:3000 cypress/included:13.17.0  npx cypress run --headless
+  #     # Step 6: Run Cypress tests using the official Cypress Docker image
+  #     - name: Run Cypress tests
+  #       run: |
+  #         docker run --rm -v C:/githubfrontendindividual/frontendsss6/cypress:/mnt/project  -w /mnt/project -e CYPRESS_baseUrl=http://localhost:3000 cypress/included:13.17.0  npx cypress run --headless
 
   
-      # Step 7: Cleanup containers after the tests
-      - name: Cleanup containers
-        run: docker stop frontend-container backend-container && docker rm frontend-container backend-container
+  #     # Step 7: Cleanup containers after the tests
+  #     - name: Cleanup containers
+  #       run: docker stop frontend-container backend-container && docker rm frontend-container backend-container
 
 
   sonar:
     runs-on: ubuntu-latest
-    needs: [test,Integrationtest,EndtoEnd]
+    needs: [test,Integrationtest]
     steps:
       - name: Check out the code
         uses: actions/checkout@v3

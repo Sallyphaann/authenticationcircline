@@ -3,9 +3,11 @@ services:
     image: sallyphaan/frontendindividualss6:latest
     container_name: frontend
     environment:
-      CYPRESS_BASE_URL: "http://backend:8081"  # Adjust to backend's correct URL if needed
+      CYPRESS_BASE_URL: "http://backend:8081"
     networks:
-      - e2e-network  # Attach to the custom network
+      - e2e-network
+    depends_on:
+      - backend
 
   backend:
     image: sallyphaan/authenticationcc:latest
@@ -13,8 +15,15 @@ services:
     ports:
       - "8081:8081"
     networks:
-      - e2e-network  # Attach to the custom network
+      - e2e-network
 
-networks:
-  e2e-network:
-    driver: bridge  # You can also use 'host' if needed, but 'bridge' is typically fine for most use cases
+  cypress:
+    image: cypress/included:13.17.0  # Official Cypress Docker image
+    container_name: cypress
+    environment:
+      CYPRESS_baseUrl: "http://frontend:3000"  # Adjust as necessary
+    depends_on:
+      - frontend
+    networks:
+      - e2e-network
+    entrypoint: npx cypress run  # This will run the Cypress tests

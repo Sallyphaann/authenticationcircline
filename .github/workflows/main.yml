@@ -292,6 +292,7 @@ jobs:
             --memory 1 \
             --registry-username ${{ secrets.ACR_USERNAME }} \
             --registry-password ${{ secrets.ACR_PASSWORD }} \
-            --ports 8081
+            --ports 8081 \
+            --os-type Linux  # Added osType flag here
           
      

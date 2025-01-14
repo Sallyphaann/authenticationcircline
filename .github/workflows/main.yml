@@ -153,11 +153,12 @@ jobs:
       - name: Run Cypress tests
         run: |
           docker run --rm \
-            -v /home/runner/work/_temp:/mnt/project \
-            -w /mnt/project \
-            -e CYPRESS_baseUrl=http://localhost:3000 \
-            cypress/included:13.17.0 \
-            npx cypress run --headless
+          -v C:\githubfrontendindividual\frontendsss6\cypress:/mnt/project \
+          -w /mnt/project \
+          -e CYPRESS_baseUrl=http://localhost:3000 \
+          cypress/included:13.17.0 \
+          npx cypress run --headless
+
   
       # Step 7: Cleanup containers after the tests
       - name: Cleanup containers

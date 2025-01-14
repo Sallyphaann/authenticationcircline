@@ -149,25 +149,20 @@ jobs:
             sleep 2
           done
   
-      # Step 6: Install dependencies inside the frontend container (including libnss3)
-      - name: Install required dependencies in frontend container
+      # Step 6: Run Cypress tests using the official Cypress Docker image
+      - name: Run Cypress tests
         run: |
-          docker exec frontend-container bash -c "apt-get update && apt-get install -y libnss3 libatk-bridge2.0-0 libx11-xcb1 libgdk-pixbuf2.0-0 libxss1 libasound2"
+          docker run --rm \
+            -v /home/runner/work/_temp:/mnt/project \
+            -w /mnt/project \
+            -e CYPRESS_baseUrl=http://localhost:3000 \
+            cypress/included:13.17.0 \
+            npx cypress run --headless
   
-      # Step 7: Install Cypress inside the frontend container
-      - name: Install Cypress inside frontend container
-        run: |
-          docker exec frontend-container bash -c "npm install cypress"
-  
-      # Step 8: Run Cypress tests with Xvfb
-      - name: Run Cypress tests with Xvfb
-        run: |
-          docker exec frontend-container bash -c "Xvfb :99 & export DISPLAY=:99 && npx cypress run --config baseUrl=http://localhost:3000 --headless"
-  
-      # Step 9: Cleanup containers after the tests
+      # Step 7: Cleanup containers after the tests
       - name: Cleanup containers
         run: docker stop frontend-container backend-container && docker rm frontend-container backend-container
-  
+
 
   sonar:
     runs-on: ubuntu-latest

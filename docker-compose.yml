@@ -27,3 +27,7 @@ services:
     networks:
       - e2e-network
     entrypoint: npx cypress run  # This will run the Cypress tests
+
+networks:
+  e2e-network:
+    driver: bridge

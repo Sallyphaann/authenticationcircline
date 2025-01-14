@@ -109,33 +109,33 @@ jobs:
           SPRING_DATASOURCE_URL: ${{ secrets.DATABASE_URL }}
           SPRING_DATASOURCE_USERNAME: ${{ secrets.DB_USERNAME }}
           SPRING_DATASOURCE_PASSWORD: ${{ secrets.DB_PASSWORD }}
-  EndtoEnd:
+EndtoEnd:
     runs-on: ubuntu-latest
     needs: build
     steps:
       # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
-
+  
       # Step 2: Log in to Docker Hub (if necessary)
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
-
+  
       # Step 3: Pull and run the backend container
       - name: Pull and run the backend container
         run: |
           docker pull sallyphaan/authenticationcc:latest
           docker run -d --name backend-container -p 8081:8081 sallyphaan/authenticationcc:latest
-
+  
       # Step 4: Pull and run the frontend container
       - name: Pull and run the frontend container
         run: |
           docker pull sallyphaan/frontendindividualss6:latest
           docker run -d --name frontend-container -p 3000:3000 sallyphaan/frontendindividualss6:latest
-
+  
       # Step 5: Wait for the services to be ready (Health check approach)
       - name: Wait for services to be ready
         run: |
@@ -147,18 +147,23 @@ jobs:
             echo "Waiting for backend to be ready..."
             sleep 2
           done
-          
+  
       # Step 6: Install Cypress dependencies
       - name: Install Cypress dependencies
-        run: npm install cypress
-
-      # Step 7: Run Cypress tests
+        run: |
+          cd frontendsss6  # Adjust this path if your frontend is in a subfolder
+          npm install cypress
+  
+      # Step 7: Run Cypress tests in the frontend directory
       - name: Run Cypress tests
-        run: npx cypress run --config baseUrl=http://localhost:3000
-
-      # Step 8: Cleanup containers after the tests are complete
+        run: |
+          cd frontendsss6  # Make sure we are in the frontend directory
+          npx cypress run --config baseUrl=http://localhost:3000 --headless
+  
+      # Step 8: Cleanup containers after the tests
       - name: Cleanup containers
         run: docker stop frontend-container backend-container && docker rm frontend-container backend-container
+
   sonar:
     runs-on: ubuntu-latest
     needs: [test,Integrationtest,EndtoEnd]

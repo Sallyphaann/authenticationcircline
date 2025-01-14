@@ -18,16 +18,19 @@ services:
       - e2e-network
 
   cypress:
-    image: cypress/included:13.17.0  # Official Cypress Docker image
+    image: cypress/included:13.17.0
     container_name: cypress
     environment:
-      CYPRESS_baseUrl: "http://frontend:3000"  # Adjust as necessary
+      CYPRESS_baseUrl: "http://frontend:3000"
     depends_on:
       - frontend
     networks:
       - e2e-network
-    entrypoint: npx cypress run  # This will run the Cypress tests
-
+    entrypoint: npx cypress run
+    working_dir: /e2e
+    volumes:
+      - "C:/Users/Acer Nitro/OneDrive - Office 365 Fontys/Desktop/git hub frontend individual/frontendsss6/cypress/e2e:/e2e"  # Windows path to your test files
+    command: npx cypress run
 networks:
   e2e-network:
     driver: bridge

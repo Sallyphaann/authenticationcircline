@@ -29,7 +29,7 @@ services:
     entrypoint: npx cypress run
     working_dir: /e2e
     volumes:
-      - " C:\githubfrontendindividual\frontendsss6\cypress\e2e:\e2e"
+      - "C:/githubfrontendindividual/frontendsss6/cypress/e2e:/e2e"
     command: npx cypress run
 networks:
   e2e-network:

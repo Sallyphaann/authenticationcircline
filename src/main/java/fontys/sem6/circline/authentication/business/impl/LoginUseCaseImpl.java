@@ -34,11 +34,9 @@ public class LoginUseCaseImpl implements LoginUseCase {
             throw new AccountNotFoundException();
         }
 
-
         if (!matchesPassword(loginRequest.getPassword(), account.getPassword())) {
             throw new InvalidCredentialsException();
         }
-
 
         String accessToken = generateAccessToken(account);
         return LoginResponse.builder().accessToken(accessToken).build();

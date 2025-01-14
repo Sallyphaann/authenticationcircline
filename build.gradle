@@ -44,6 +44,9 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'org.testcontainers:junit-jupiter'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testImplementation 'org.mockito:mockito-core'
+
+	testImplementation 'org.mockito:mockito-junit-jupiter'
 
 
 }
@@ -60,6 +63,26 @@ sonar {
 	}
 }
 
+task integrationTest(type: Test) {
+	description = 'Runs the integration tests.'
+	group = 'verification'
+	useJUnitPlatform {
+		includeTags 'integration'
+	}
+	testClassesDirs = sourceSets.test.output.classesDirs
+	classpath = sourceSets.test.runtimeClasspath
+}
+
+
+check.dependsOn integrationTest
+
+
 tasks.named('test') {
 	useJUnitPlatform()
+
+}
+tasks.withType(Test) {
+	testLogging {
+		events "PASSED", "FAILED", "SKIPPED"
+	}
 }

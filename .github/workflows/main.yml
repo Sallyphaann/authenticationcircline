@@ -283,16 +283,16 @@ jobs:
   
       - name: Deploy to Azure Container Instances
         run: |
-          az acr login --name authenticationservice
+         az acr login --name authenticationservice  # Log in to ACR
           az container create \
             --resource-group circlineRG \
-            --name postservice-container \
-            --image sallyphaan/authenticationcc:latest \
+            --name authenticationservice \
+            --image authenticationservice.azurecr.io/sallyphaan/authenticationcc:latest \  
             --cpu 1 \
             --memory 1 \
             --registry-username ${{ secrets.ACR_USERNAME }} \
             --registry-password ${{ secrets.ACR_PASSWORD }} \
             --ports 8081 \
-            --os-type Linux  # Added osType flag here
+            --os-type Linux
           
      

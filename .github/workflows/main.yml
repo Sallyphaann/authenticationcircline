@@ -230,8 +230,6 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # Deploy to Azure Container Instances (ACI)
       - name: Deploy to ACI
         run: |
           az container update \

@@ -25,14 +25,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class LoginControllerTest {
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private LoginUseCase loginUseCase;
-
     @InjectMocks
     private LoginController loginController;
-
-
     @Test
     void testLogin_success() throws Exception {
         LoginRequest loginRequest = LoginRequest.builder()

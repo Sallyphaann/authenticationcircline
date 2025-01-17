@@ -1,4 +1,5 @@
 scrape_configs:
-  - job_name: 'authservice'
+  - job_name: 'spring-boot-app'
+    metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['authservice-service:8081']
+      - targets: ['localhost:8081']  # Replace with your app's host and port
